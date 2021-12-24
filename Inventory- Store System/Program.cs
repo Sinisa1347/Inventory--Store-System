@@ -17,9 +17,10 @@ namespace Inventory__Store_System
         static void Main(string[] args)
         {
             int returnToStart = 0;
-            int returnToBeginning = 0;
+            //int returnToBeginning = 0;
 
             int counterForArmorListPlayer = 1;
+            int counterForArmorListStore = 1;
 
             while (returnToStart==0)
             {
@@ -29,9 +30,14 @@ namespace Inventory__Store_System
                 Console.WriteLine("2. seller");
                 Console.WriteLine("0. Type 0 to exit the program");
 
+                
+                int returnToBeginning = 0;
+
                 Console.WriteLine("------------------");
                 int readNumber = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("------------------");
+
+                Console.Clear();
 
                 if (readNumber == 0)
                     Environment.Exit(0);
@@ -48,6 +54,7 @@ namespace Inventory__Store_System
                         Console.WriteLine("3. Check potion availability:");
                         Console.WriteLine("4. Check weapon availability:");
                         Console.WriteLine("5. Buy");
+                        Console.WriteLine("6. Sell");
                         Console.WriteLine("0. Go back");
 
                         Console.WriteLine("------------------");
@@ -55,7 +62,7 @@ namespace Inventory__Store_System
                         Console.WriteLine("------------------");
                         
                         Console.Clear();
-                        
+
                         if (enteredNumber == 1)
                         {
                             var inventory = new Player.Inventory();//checking remaining player weight left
@@ -69,13 +76,13 @@ namespace Inventory__Store_System
                             {
                                 Console.WriteLine("Please enter 0 if you want to go back");
                                 returnInt = 0;
-                            }    
+                            }
                         }
 
-                        else if (enteredNumber==2)
+                        else if (enteredNumber == 2)
                         {
                             var armorCheck = new Player.Armor();
-                            armorCheck.CheckArmor();
+                            armorCheck.CheckArmorAvaibility();
 
                             Console.WriteLine("0. Go back");
                             int checkInt = Convert.ToInt32(Console.ReadLine());
@@ -96,7 +103,7 @@ namespace Inventory__Store_System
 
                         }
 
-                        else if (enteredNumber==4)
+                        else if (enteredNumber == 4)
                         {
                             var weaponCheck = new Player.Weapon();// OVDE
                             weaponCheck.CheckWeapon();
@@ -107,8 +114,7 @@ namespace Inventory__Store_System
                                 returnInt = 0;
                         }
 
-
-                        else if (enteredNumber==5)
+                        else if (enteredNumber == 5)
                         {
                             while (returnInt == 0)
                             {
@@ -121,15 +127,15 @@ namespace Inventory__Store_System
                                 int choise = Convert.ToInt32(Console.ReadLine());
                                 Console.Clear();
 
-                                if (choise==1)
+                                if (choise == 1)
                                 {
                                     int returning = 0;
-                                    
-                                    while (returning==0)
+
+                                    while (returning == 0)
                                     {
                                         var storeArmor = new Store.Armor();//check store armor avaibility
                                         storeArmor.CheckArmorAvaibility();
-                                        
+
                                         Console.WriteLine("---------");
                                         Console.WriteLine("0. Go back");
                                         int chosen1 = Convert.ToInt32(Console.ReadLine());//input is chosen1
@@ -159,18 +165,23 @@ namespace Inventory__Store_System
                                                 string[] readText = File.ReadAllLines(armorList);
 
                                                 Console.WriteLine("Adding the next item to you inventory:");
-                                                Console.WriteLine($"{chosen1}.{readText[chosen1]}");//text start from 0 index of readText
+                                                Console.WriteLine(readText[chosen1]);//text start from 0 index of readText
 
                                                 //PlayerArmor.Armor();//prvo da dam igracu pa onda mogu brisati iz stor-a
                                                 //Armor.soldArmorToPlayer(chosen1);
 
 
+                                                
+                                                
                                                 var addedItem = new Player.Armor();
-                                                addedItem.BoughtArmor(readText[chosen1], counterForArmorListPlayer);
-                                                counterForArmorListPlayer++;
+                                                string newText= readText[chosen1].Remove(0, 3);// removed first tree letter (number. )
+                                                addedItem.BoughtArmor(newText, counterForArmorListPlayer);
 
+                                                var chosen1String = Convert.ToString(chosen1);
+                                                chosen1String = $"{chosen1String}.";
                                                 var deleteItem = new Store.Armor();//method for deleting bought stuff
-                                                deleteItem.soldArmorToPlayer(chosen1);
+                                                deleteItem.soldArmorToPlayer(chosen1String);
+                                                counterForArmorListStore--;
 
                                                 Console.WriteLine("0. go back");
 
@@ -182,26 +193,27 @@ namespace Inventory__Store_System
                                                     Console.Clear();
                                                 }
                                             }
-                                            else if(check==2)
+                                            else if (check == 2)
                                             {
                                                 returning = 0;
                                                 Console.Clear();
                                             }
+                                                counterForArmorListPlayer++;
                                         }
 
                                     }
-                                        //Console.WriteLine();
-                                        //Console.WriteLine("0. Go back");
-                                        //int checkInt = Convert.ToInt32(Console.ReadLine());
-                                        //if (checkInt == 0)
-                                        //    returnInt = 0;
+                                    //Console.WriteLine();
+                                    //Console.WriteLine("0. Go back");
+                                    //int checkInt = Convert.ToInt32(Console.ReadLine());
+                                    //if (checkInt == 0)
+                                    //    returnInt = 0;
 
-                                        //Console.Clear();
+                                    //Console.Clear();
 
-                                    
+
                                 }
 
-                                else if (choise==2)
+                                else if (choise == 2)
                                 {
 
                                 }
@@ -211,21 +223,124 @@ namespace Inventory__Store_System
 
                                 }
 
-                                else if(choise==0)
+                                else if (choise == 0)
                                 {
                                     break;
                                 }
                             }
                         }
 
+                        else if (enteredNumber == 6)
+                        {
+                            while (returnInt == 0)
+                            {
+                                Console.WriteLine("What would you like to sell?");
+                                Console.WriteLine("1. Armor");
+                                Console.WriteLine("2. Potion");
+                                Console.WriteLine("3. Weapon");
+                                Console.WriteLine("0. Go back");
+
+                                int choise = Convert.ToInt32(Console.ReadLine());
+                                Console.Clear();
+
+                                if (choise == 1)
+                                {
+                                    int returning = 0;
+
+                                    while (returning == 0)
+                                    {
+                                        var playerArmor = new Player.Armor();//check player armor avaibility
+                                        playerArmor.CheckArmorAvaibility();
+
+                                        Console.WriteLine("---------");
+                                        Console.WriteLine("0. Go back");
+                                        int chosen1 = Convert.ToInt32(Console.ReadLine());//input is chosen1
+
+                                        if (chosen1 == 0)
+                                        {
+                                            returning = 1;
+                                            returnInt = 0;
+                                            Console.Clear();
+                                        }
+
+                                        else
+                                        {
+                                            string armorList = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Player\ArmorList.txt";
+
+                                            Console.Clear();
+
+                                            Console.WriteLine("Are you sure you want to sell this item:");//confirm choise
+                                            Console.WriteLine("1. yes");
+                                            Console.WriteLine("2. no");
+
+                                            int check = Convert.ToInt32(Console.ReadLine());
+                                            if (check == 1)
+                                            {
+                                                Console.Clear();
+
+                                                string[] readText = File.ReadAllLines(armorList);
+
+                                                Console.WriteLine("Removing the next item from your inventory:");
+                                                Console.WriteLine(readText[chosen1]);//text start from 0 index of readText
+
+
+                                                var removedItem = new Player.Armor();//methods for deleting sold stuff from Player
+                                                var chosen1String = Convert.ToString(chosen1);
+                                                //string newText = readText[chosen1].Remove(0, 3);
+                                                chosen1String = $"{chosen1String}.";
+                                                removedItem.SoldArmorToStore(chosen1String);
+                                                
+
+                                                var addedItem = new Store.Armor();//method for adding sold stuff to Store
+                                                
+                                                addedItem.boughtArmorFromPlayer(readText[chosen1], counterForArmorListStore);
+                                                counterForArmorListStore++;
+
+                                                Console.WriteLine("0. go back");
+
+                                                int input = Convert.ToInt32(Console.ReadLine());
+
+                                                if (input == 0)
+                                                {
+                                                    returning = 0;
+                                                    Console.Clear();
+                                                }
+                                            }
+                                            else if (check == 2)
+                                            {
+                                                returning = 0;
+                                                Console.Clear();
+                                            }
+                                        }
+
+                                    }
+                                }
+
+                                else if (choise==2)
+                                {
+
+                                }
+
+                                else if (choise ==3)
+                                {
+
+                                }
+
+                                else if (choise == 0)
+                                {
+                                    break;
+                                }
+
+                            }
+                        }
 
                         else if (enteredNumber == 0)
                         {
                             returnInt = 1;
                             returnToStart = 0;
-                        }    
+                        }
 
-                        
+
 
                         else
                         {
@@ -239,19 +354,21 @@ namespace Inventory__Store_System
 
                 else if (readNumber==2)//seller
                 {
-                    Console.Clear();
 
                     while (returnToBeginning==0)
                     {
-                        int returnInt = 0;
-                        Console.Clear();
+                        
+
+                        
 
                         Console.WriteLine("Choose the category");
                         Console.WriteLine("1. Armor");
                         Console.WriteLine("2. Potion");
                         Console.WriteLine("3. Weapon");
                         Console.WriteLine("0. Go back");
-                    
+
+                        int returnInt = 0;
+
                         int checkInt = Convert.ToInt32(Console.ReadLine());
                         Console.Clear();
 
@@ -279,7 +396,8 @@ namespace Inventory__Store_System
                                 if (checkInt == 1)
                                 {
                                     var armorList = new Store.Armor();// dodavanje novog armor-a
-                                    armorList.ArmorShipment();
+                                    armorList.ArmorShipment(counterForArmorListStore);
+                                    counterForArmorListStore++;
                                 
                                     Console.WriteLine("0. Go back");
 
@@ -294,6 +412,7 @@ namespace Inventory__Store_System
                                 {
                                     var armorAvaibility = new Store.Armor();// proveravanje armora u prodavnici
                                     armorAvaibility.CheckArmorAvaibility();
+                                    
 
                                     Console.WriteLine("0. Go back");
 

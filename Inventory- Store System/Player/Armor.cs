@@ -60,75 +60,109 @@ namespace Inventory__Store_System.Player
             return _price;
         }
 
-        public void BoughtArmor(string armor,int counter)
+        public void BoughtArmor(string armor, int counter)
         {
-            
-            string withCounter = $"\n{counter}. {armor}";
-            
-            File.AppendAllText (armorList, withCounter);
+
+            //armor.Remove(0, 3);
             
 
+            if (counter == 1)
+            {
+                File.AppendAllText(armorList, "Name, defense status(1-5), weight(1-10), price(1-...);\n");
+                File.AppendAllText(armorList, $"{counter}. {armor}\n");
+            }
+
+            else
+            {
+                string withCounter = $"{counter}. {armor}\n";
+                File.AppendAllText(armorList, $"{counter}. {armor}\n");
+
+            }
+
+
+
+
+            
 
         }
 
-            //if (readText[counter].Contains("Name, defense status(1-5), weight(1-10), price(1-...);"))
-            //{
-            //    sw.WriteLine(readText[counter]);
-            //    counter++;
-            //}
-
-            //else
-            //{
-            //    sw.WriteLine($"{counter}. {armor}");
-            //    counter++;
-            //}
-
-        
-
-
-            //foreach (var line in allLines)
-            //{
-            //    if (line.Contains("Name, defense status(1-5), weight(1-10), price(1-...);"))
-            //    {
-            //        Console.WriteLine(line);
-            //    }
-
-            //    else
-            //    {
-
-            //        Console.WriteLine($"{counter}.{line}");
-            //        counter++;
-            //    }
-
-
-        public void CheckArmor()
+        public void CheckArmorAvaibility()
         {
-            using (StreamReader sr = new StreamReader(armorList))
+            
+            var allLines = File.ReadLines(armorList);
+
+            foreach (var line in allLines)
             {
-                Console.WriteLine(sr.ReadToEnd());
                 
+                Console.WriteLine(line);
             }
         }
 
+        public void SoldArmorToStore (string input)//input is input for line number
+        {
+            string[] readText = File.ReadAllLines(armorList);
 
-        //public void SoldArmor(string _name, int _defenseStatus, int _weight, int _price)
-        //{
+            int counter = 0;
+            //deletes line that is defined by input
 
-        //    Console.WriteLine($"Name:{_name},defense status: {_defenseStatus}, weight: {_weight}, price: {_price}");
-        //    using (StreamReader sr = new StreamReader(armorList))
-        //    {
-        //        string armourList = sr.ToString();
-        //        if (armorList.Contains($"Name:{_name},defense status: {_defenseStatus}, weight: {_weight}, price: {_price}"))
-        //        {
-        //            armourList.Replace($"Name:{_name},defense status: {_defenseStatus}, weight: {_weight}, price: {_price}", "\b");
-        //        }
-        //        else
-        //        {
-        //            Console.WriteLine("");
-        //        }
-        //    }
-        //}
+            using (StreamWriter sw = new StreamWriter(armorList))
+            {
+                foreach (var line in readText)
+                {
+                    if (counter == 0)// first line of text
+                    {
+                        sw.WriteLine(line);
+                        counter++;
+                    }
+
+                    else if (line.Contains(input))//line to remove
+                    {
+                        sw.Write("");
+                    }
+                    else
+                    {
+                        string newLine = line.Remove(0, 3);
+                        sw.WriteLine($"{counter}. {newLine}");
+                        counter++;
+                    }
+                }
+            }
 
 
+
+            //string[] lines = File.ReadAllLines(armorList);
+
+
+            //string stringInput = Convert.ToString(count);
+
+
+            //using (StreamWriter sw = File.CreateText(armorList))
+            //{
+            //    foreach (var line in lines)
+            //    {
+
+
+            //        if (count == 0)
+            //        {
+            //            sw.WriteLine(line);
+            //            //count++;
+            //        }
+
+            //        else if (lines[input].StartsWith(stringInput))
+            //        {
+            //            sw.Write("");
+            //            //count++;
+            //        }
+            //        else
+            //        {
+            //            line.Remove(0, 3);
+            //            sw.WriteLine($"{line}");
+            //            count++;
+            //        }
+            //    }
+
+
+            //}
+        }
     }
 }

@@ -1,3 +1,3 @@
 # Inventory--Store-System
 
-## Welcome to my humble Store-Inventory management
+## Welcome to my humble Store-Inventory system management

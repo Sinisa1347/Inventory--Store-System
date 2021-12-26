@@ -14,6 +14,7 @@ namespace Inventory__Store_System
 {
     public class Program
     {
+        
         static void Main(string[] args)
         {
             int returnToStart = 0;
@@ -22,8 +23,12 @@ namespace Inventory__Store_System
             int counterForArmorListPlayer = 1;
             int counterForArmorListStore = 1;
 
+            
+
             while (returnToStart==0)
             {
+                bool checkBool = true;//for stopping double writting of Player-Armor- Name, defense status(1-5), weight(1-10), price(1-...);
+
                 Console.WriteLine("Welcome to my humble store system");
                 Console.WriteLine("Are you a:");
                 Console.WriteLine("1. buyer");
@@ -175,17 +180,22 @@ namespace Inventory__Store_System
                                                 
                                                 var addedItem = new Player.Armor();
                                                 string newText= readText[chosen1].Remove(0, 3);// removed first tree letter (number. )
-                                                addedItem.BoughtArmor(newText, counterForArmorListPlayer);
+                                                
+                                                addedItem.BoughtArmor(newText, counterForArmorListPlayer, checkBool);
+                                                checkBool = false;
 
                                                 var chosen1String = Convert.ToString(chosen1);
                                                 chosen1String = $"{chosen1String}.";
                                                 var deleteItem = new Store.Armor();//method for deleting bought stuff
                                                 deleteItem.soldArmorToPlayer(chosen1String);
-                                                counterForArmorListStore--;
+                                                
 
                                                 Console.WriteLine("0. go back");
 
                                                 int input = Convert.ToInt32(Console.ReadLine());
+
+                                                counterForArmorListPlayer++;
+                                                counterForArmorListStore--;
 
                                                 if (input == 0)
                                                 {
@@ -198,7 +208,8 @@ namespace Inventory__Store_System
                                                 returning = 0;
                                                 Console.Clear();
                                             }
-                                                counterForArmorListPlayer++;
+                                           
+                                            
                                         }
 
                                     }
@@ -274,6 +285,8 @@ namespace Inventory__Store_System
                                             Console.WriteLine("2. no");
 
                                             int check = Convert.ToInt32(Console.ReadLine());
+                                            
+
                                             if (check == 1)
                                             {
                                                 Console.Clear();
@@ -294,11 +307,15 @@ namespace Inventory__Store_System
                                                 var addedItem = new Store.Armor();//method for adding sold stuff to Store
                                                 
                                                 addedItem.boughtArmorFromPlayer(readText[chosen1], counterForArmorListStore);
-                                                counterForArmorListStore++;
+                                                
 
                                                 Console.WriteLine("0. go back");
 
                                                 int input = Convert.ToInt32(Console.ReadLine());
+
+                                                counterForArmorListPlayer--;
+                                                counterForArmorListStore++;
+
 
                                                 if (input == 0)
                                                 {
@@ -311,6 +328,8 @@ namespace Inventory__Store_System
                                                 returning = 0;
                                                 Console.Clear();
                                             }
+                                            
+                                           
                                         }
 
                                     }

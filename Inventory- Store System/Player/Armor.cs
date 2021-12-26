@@ -60,26 +60,28 @@ namespace Inventory__Store_System.Player
             return _price;
         }
 
-        public void BoughtArmor(string armor, int counter)
+        public void BoughtArmor(string armor, int counter, bool check)
         {
 
             //armor.Remove(0, 3);
+            //if (counter == 1&& armorList==null)
             
 
-            if (counter == 1)
+            if (check==true)
             {
-                File.AppendAllText(armorList, "Name, defense status(1-5), weight(1-10), price(1-...);\n");
+                File.AppendAllText(armorList, "Name, defense status(1-5), weight(1-10), price(1-...);\n");// GRESKA JE OVDE-OVO mi izbacuje cak i nakon sto je vec postoji
                 File.AppendAllText(armorList, $"{counter}. {armor}\n");
+                
             }
 
             else
             {
-                string withCounter = $"{counter}. {armor}\n";
+                //string withCounter = $"{counter}. {armor}\n";
                 File.AppendAllText(armorList, $"{counter}. {armor}\n");
 
             }
 
-
+            
 
 
             

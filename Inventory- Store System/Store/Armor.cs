@@ -59,40 +59,42 @@ namespace Inventory__Store_System.Store
             return _price;
         }
 
-        public void ArmorShipment(int counter)
+        public void ArmorShipment()
         {
+            string[] readTextLines = File.ReadAllLines(armorList);
+            int numberOfLines = readTextLines.Length;
+
             Console.WriteLine("Please enter added armor:");
             Console.WriteLine("Name, defense status(1-5), weight(1-10), price(1-...)");
+            Console.WriteLine("Press 0 if you have changed you mind");
+            var readText = Console.ReadLine();
+
+            if (numberOfLines == 0)
+            {
+                File.AppendAllText(armorList, "Name, defense status(1-5), weight(1-10), price(1-...);\n");
+                File.AppendAllText(armorList, $"{numberOfLines + 1}. {readText};\n");
+            }
             
-            var entered = Console.ReadLine();
-            var emptyText = File.ReadAllLines(armorList);
+            else if (numberOfLines > 0)
+            {
+                File.AppendAllText(armorList, $"{numberOfLines}. {readText};\n");
+
+            }
+
+            else if (readText=="0")
+            {
+                File.AppendAllText(armorList, "");
+            }
             
 
-            //int lineCounter = 0;
-
-            //File.AppendAllText(armorList,startingText);
-
-                if (counter==1)
-                {
-                    File.AppendAllText(armorList, "Name, defense status(1-5), weight(1-10), price(1-...);\n");
-                    File.AppendAllText(armorList, $"{counter}. {entered}\n");
-                }
-
-                else
-                {
-                    File.AppendAllText(armorList, $"{counter}. {entered}\n");
-                    
-                }
         }
 
         public void CheckArmorAvaibility()
         {
-            //int counter = 1;
             var allLines = File.ReadLines(armorList);
 
             foreach (var line in allLines)
             {
-                //line.Remove(0, 3);
                 Console.WriteLine(line);
             }
         }
@@ -108,44 +110,51 @@ namespace Inventory__Store_System.Store
         public void soldArmorToPlayer(string input)// deleting sold armor
         {
             string[] readText = File.ReadAllLines(armorList);
-
-            int counter = 0;
-            //deletes line that is defined by input
+            int forLineCount = 0;
 
             using (StreamWriter sw = new StreamWriter(armorList))
             {
                 foreach (var line in readText)
                 {
-                    if (counter==0)// first line of text
+                    if (forLineCount == 0)
                     {
                         sw.WriteLine(line);
-                        counter++;
+                        forLineCount++;
                     }
                 
-                    else if (line.Contains(input))//line to remove
+                    else if (line.Contains(input))
                     {
                         sw.Write("");
                     }
                     else
                     {
-                        string newLine=line.Remove(0, 3);
-                        sw.WriteLine($"{counter}. {newLine}");
-                        counter++;
+                        string newLine = line.Remove(0, 3);
+                        sw.WriteLine($"{forLineCount}. {newLine}");
+                        forLineCount++;
                     }
                 }
             }
         }
 
-        public void boughtArmorFromPlayer (string armor, int counter)
+        public void boughtArmorFromPlayer (string armor)
         {
-            
-            
+            string[] readText = File.ReadAllLines(armorList);
+            int numberOfLines = readText.Length;
+
             string newArmor=armor.Remove(0, 3);
             
-            string withCounter = $"{counter}. {newArmor}\n";
+            string withCounter = $"{numberOfLines}. {newArmor}\n";
 
             File.AppendAllText(armorList, withCounter);
 
+        }
+
+        public void ResetArmorListStore()
+        {
+            string textToReset = "Name, defense status(1-5), weight(1-10), price(1-...)\n1. Heavy armor,5,9,20;\n2. Light armor,3,6,15;\n3. Thiefs armor,2,4,10;\n4. Knight's armor,5,10,25;";
+
+
+            File.WriteAllText(armorList, textToReset);
         }
     }
 }

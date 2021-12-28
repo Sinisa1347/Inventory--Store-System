@@ -18,25 +18,25 @@ namespace Inventory__Store_System
         static void Main(string[] args)
         {
             int returnToStart = 0;
-            //int returnToBeginning = 0;
 
-            int counterForArmorListPlayer = 1;
-            int counterForArmorListStore = 1;
+            //int counterForArmorListPlayer = 1;
+            //int counterForArmorListStore = 1;
 
+            //var enteredWeight = new Player.Inventory();
             
 
             while (returnToStart==0)
             {
-                bool checkBool = true;//for stopping double writting of Player-Armor- Name, defense status(1-5), weight(1-10), price(1-...);
 
                 Console.WriteLine("Welcome to my humble store system");
                 Console.WriteLine("Are you a:");
                 Console.WriteLine("1. buyer");
                 Console.WriteLine("2. seller");
+                Console.WriteLine("9. Reset the program");
                 Console.WriteLine("0. Type 0 to exit the program");
 
                 
-                int returnToBeginning = 0;
+                int returnToSellerBeginning = 0;
 
                 Console.WriteLine("------------------");
                 int readNumber = Convert.ToInt32(Console.ReadLine());
@@ -71,7 +71,7 @@ namespace Inventory__Store_System
                         if (enteredNumber == 1)
                         {
                             var inventory = new Player.Inventory();//checking remaining player weight left
-                            inventory.Check();
+                            int checkedWeight = inventory.CheckForLeftWeight();
 
                             Console.WriteLine("0. Go back");
                             int checkInt = Convert.ToInt32(Console.ReadLine());
@@ -143,9 +143,9 @@ namespace Inventory__Store_System
 
                                         Console.WriteLine("---------");
                                         Console.WriteLine("0. Go back");
-                                        int chosen1 = Convert.ToInt32(Console.ReadLine());//input is chosen1
+                                        int chosenNumber = Convert.ToInt32(Console.ReadLine());//input is chosenNumber
 
-                                        if (chosen1 == 0)
+                                        if (chosenNumber == 0)
                                         {
                                             returning = 1;
                                             returnInt = 0;
@@ -163,65 +163,85 @@ namespace Inventory__Store_System
                                             Console.WriteLine("2. no");
 
                                             int check = Convert.ToInt32(Console.ReadLine());
+
+                                            //string readText = File.ReadAllText(armorList);
+                                            //int numberOfLines = readText.Length;
+                                            //string[] readText = File.ReadAllLines(armorList);
+                                            //string textWithoutNumber = readText[chosenNumber].Remove(0, 3);// removed first tree letter (number. )
+
                                             if (check == 1)
                                             {
                                                 Console.Clear();
 
                                                 string[] readText = File.ReadAllLines(armorList);
+                                                string textWithoutNumber = readText[chosenNumber].Remove(0, 3);
 
-                                                Console.WriteLine("Adding the next item to you inventory:");
-                                                Console.WriteLine(readText[chosen1]);//text start from 0 index of readText
+                                                string[] splitForWeight = textWithoutNumber.Split(",");
+                                                int WeightOfBoughtArmor = Convert.ToInt32(splitForWeight[2]);
 
-                                                //PlayerArmor.Armor();//prvo da dam igracu pa onda mogu brisati iz stor-a
-                                                //Armor.soldArmorToPlayer(chosen1);
-
-
+                                                var weightCheck = new Player.Inventory();
+                                                int leftWeight = weightCheck.SubtractBoughtStuffWeightFromMaxWeight(WeightOfBoughtArmor);
                                                 
-                                                
-                                                var addedItem = new Player.Armor();
-                                                string newText= readText[chosen1].Remove(0, 3);// removed first tree letter (number. )
-                                                
-                                                addedItem.BoughtArmor(newText, counterForArmorListPlayer, checkBool);
-                                                checkBool = false;
+                                                int checkInventoryWeight = weightCheck.CheckForLeftWeight();
 
-                                                var chosen1String = Convert.ToString(chosen1);
-                                                chosen1String = $"{chosen1String}.";
-                                                var deleteItem = new Store.Armor();//method for deleting bought stuff
-                                                deleteItem.soldArmorToPlayer(chosen1String);
-                                                
-
-                                                Console.WriteLine("0. go back");
-
-                                                int input = Convert.ToInt32(Console.ReadLine());
-
-                                                counterForArmorListPlayer++;
-                                                counterForArmorListStore--;
-
-                                                if (input == 0)
+                                                if (leftWeight==-1)
                                                 {
-                                                    returning = 0;
+                                                    Console.WriteLine("You can't add anymore stuff to your invenotory");
+                                                    Console.WriteLine("Please sell something to continue");
+                                                    Console.WriteLine("Press 0 to go back");
+                                                    int goBack = Convert.ToInt32(Console.ReadLine());
                                                     Console.Clear();
+
+                                                    if (goBack == 0)
+                                                        returning = 0;
+                                                    else
+                                                        returning = 0;
+
                                                 }
+                                                else
+                                                {
+
+                                                    Console.WriteLine("Adding the next item to you inventory:");
+                                                    Console.WriteLine(readText[chosenNumber]);//text start from 0 index of readText
+
+
+                                                    var addedItem = new Player.Armor();
+                                                    addedItem.BoughtArmor(textWithoutNumber);
+                                                        
+
+                                                    var chosenString = Convert.ToString(chosenNumber);
+                                                    chosenString = $"{chosenString}.";
+                                                    var deleteItem = new Store.Armor();//method for deleting bought stuff
+                                                    deleteItem.soldArmorToPlayer(chosenString);
+
+                                                    //counterForArmorListPlayer++;
+                                                    //counterForArmorListStore--;
+
+                                                    Console.WriteLine("0. go back");
+
+                                                    int input = Convert.ToInt32(Console.ReadLine());
+
+                                                    if (input == 0)
+                                                    {
+                                                        //weightLeftForWhileLoop = 0;
+                                                        returning = 0;
+                                                        Console.Clear();
+                                                    }
+                                                }
+                                                
                                             }
+
                                             else if (check == 2)
                                             {
+                                                
                                                 returning = 0;
                                                 Console.Clear();
                                             }
-                                           
                                             
+
                                         }
 
                                     }
-                                    //Console.WriteLine();
-                                    //Console.WriteLine("0. Go back");
-                                    //int checkInt = Convert.ToInt32(Console.ReadLine());
-                                    //if (checkInt == 0)
-                                    //    returnInt = 0;
-
-                                    //Console.Clear();
-
-
                                 }
 
                                 else if (choise == 2)
@@ -265,9 +285,9 @@ namespace Inventory__Store_System
 
                                         Console.WriteLine("---------");
                                         Console.WriteLine("0. Go back");
-                                        int chosen1 = Convert.ToInt32(Console.ReadLine());//input is chosen1
+                                        int entered = Convert.ToInt32(Console.ReadLine());//input is chosen1
 
-                                        if (chosen1 == 0)
+                                        if (entered == 0)
                                         {
                                             returning = 1;
                                             returnInt = 0;
@@ -280,7 +300,7 @@ namespace Inventory__Store_System
 
                                             Console.Clear();
 
-                                            Console.WriteLine("Are you sure you want to sell this item:");//confirm choise
+                                            Console.WriteLine("Are you sure you want to sell this item:");
                                             Console.WriteLine("1. yes");
                                             Console.WriteLine("2. no");
 
@@ -294,27 +314,29 @@ namespace Inventory__Store_System
                                                 string[] readText = File.ReadAllLines(armorList);
 
                                                 Console.WriteLine("Removing the next item from your inventory:");
-                                                Console.WriteLine(readText[chosen1]);//text start from 0 index of readText
+                                                Console.WriteLine(readText[entered]);//text start from 0 index of readText
 
+                                                string textWithoutNumber = readText[entered].Remove(0, 3);
 
                                                 var removedItem = new Player.Armor();//methods for deleting sold stuff from Player
-                                                var chosen1String = Convert.ToString(chosen1);
-                                                //string newText = readText[chosen1].Remove(0, 3);
-                                                chosen1String = $"{chosen1String}.";
-                                                removedItem.SoldArmorToStore(chosen1String);
-                                                
+                                                var convertedInputToString = Convert.ToString(entered);
+                                                removedItem.SoldArmorToStore($"{convertedInputToString}. ");
+
+                                                string[] armorToBeRemoved = textWithoutNumber.Split(",");//armor weight
+                                                int weightOfSoldArmor = Convert.ToInt32(armorToBeRemoved[2]);
+
+                                                var addWeightOfSoldStuff = new Player.Inventory();
+                                                addWeightOfSoldStuff.AddSoldStuffWeightToCurrentWeight(weightOfSoldArmor);//remaining weight
 
                                                 var addedItem = new Store.Armor();//method for adding sold stuff to Store
-                                                
-                                                addedItem.boughtArmorFromPlayer(readText[chosen1], counterForArmorListStore);
+                                                addedItem.boughtArmorFromPlayer(readText[entered]);
                                                 
 
                                                 Console.WriteLine("0. go back");
 
                                                 int input = Convert.ToInt32(Console.ReadLine());
 
-                                                counterForArmorListPlayer--;
-                                                counterForArmorListStore++;
+
 
 
                                                 if (input == 0)
@@ -374,7 +396,7 @@ namespace Inventory__Store_System
                 else if (readNumber==2)//seller
                 {
 
-                    while (returnToBeginning==0)
+                    while (returnToSellerBeginning == 0)
                     {
                         
 
@@ -392,7 +414,7 @@ namespace Inventory__Store_System
                         Console.Clear();
 
                         if (checkInt == 0)
-                            returnToBeginning=1;
+                            returnToSellerBeginning = 1;
                             returnToStart = 0;
                     
 
@@ -410,14 +432,15 @@ namespace Inventory__Store_System
                                 Console.Clear();
 
                                 if (checkInt == 0)
-                                    returnToBeginning = 0;
+                                    returnToSellerBeginning = 0;
                              
                                 if (checkInt == 1)
                                 {
-                                    var armorList = new Store.Armor();// dodavanje novog armor-a
-                                    armorList.ArmorShipment(counterForArmorListStore);
-                                    counterForArmorListStore++;
-                                
+
+
+                                    var listOfStoreArmors = new Store.Armor();                         
+                                    listOfStoreArmors.ArmorShipment();
+
                                     Console.WriteLine("0. Go back");
 
                                     checkInt = Convert.ToInt32(Console.ReadLine());
@@ -471,6 +494,39 @@ namespace Inventory__Store_System
                     
                     }    
                     
+                }
+
+                else if (readNumber==9)
+                {
+                    Console.WriteLine("Are you sure you want to reset?");
+                    Console.WriteLine("This cannot be undone...");
+                    Console.WriteLine("1. Yes, reset it");
+                    Console.WriteLine("2. Go back");
+
+                    int readInput = Convert.ToInt32(Console.ReadLine());
+                    
+                    if (readInput==1)
+                    {
+                        var resetArmorListForPlayer = new Player.Armor();
+                        resetArmorListForPlayer.ResetArmorListPlayer();
+
+                        var resetArmorListForStore = new Store.Armor();
+                        resetArmorListForStore.ResetArmorListStore();
+
+                        var resetMaxWeight = new Player.Inventory();
+                        resetMaxWeight.ResetMaxWeight();
+                    }
+                    else if (readInput==0)
+                    {
+                        returnToStart = 0;
+                    }
+                    else
+                    {
+                        returnToStart = 0;
+                    }
+                    Console.Clear();
+
+
                 }
 
                 

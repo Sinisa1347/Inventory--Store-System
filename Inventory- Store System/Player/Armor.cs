@@ -11,8 +11,9 @@ namespace Inventory__Store_System.Player
     {
         //armour has defense status, price, weight, name
         string armorList = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Player\ArmorList.txt";
+        
 
-        private string _name;//name
+        private string _name;
 
         public void SetName(string name)
         {
@@ -45,6 +46,7 @@ namespace Inventory__Store_System.Player
 
         public int GetWeight()
         {
+
             return _weight;
         }
 
@@ -60,31 +62,25 @@ namespace Inventory__Store_System.Player
             return _price;
         }
 
-        public void BoughtArmor(string armor, int counter, bool check)
+        public void BoughtArmor(string armor)
         {
+            string readText = File.ReadAllText(armorList);
+            string[] readTextLines = File.ReadAllLines(armorList);
+            int numberOfLines = readTextLines.Length;
 
-            //armor.Remove(0, 3);
-            //if (counter == 1&& armorList==null)
-            
-
-            if (check==true)
+            if (readText=="")
             {
-                File.AppendAllText(armorList, "Name, defense status(1-5), weight(1-10), price(1-...);\n");// GRESKA JE OVDE-OVO mi izbacuje cak i nakon sto je vec postoji
-                File.AppendAllText(armorList, $"{counter}. {armor}\n");
+                File.AppendAllText(armorList, "Name, defense status(1 - 5), weight(1 - 10), price(1 - ...);\n");
+                File.AppendAllText(armorList, $"{numberOfLines+1}. {armor}\n");
+                
+            }
+            else
+            {
+                
+                File.AppendAllText(armorList, $"{numberOfLines}. {armor}\n");
                 
             }
 
-            else
-            {
-                //string withCounter = $"{counter}. {armor}\n";
-                File.AppendAllText(armorList, $"{counter}. {armor}\n");
-
-            }
-
-            
-
-
-            
 
         }
 
@@ -95,7 +91,6 @@ namespace Inventory__Store_System.Player
 
             foreach (var line in allLines)
             {
-                
                 Console.WriteLine(line);
             }
         }
@@ -103,68 +98,35 @@ namespace Inventory__Store_System.Player
         public void SoldArmorToStore (string input)//input is input for line number
         {
             string[] readText = File.ReadAllLines(armorList);
-
-            int counter = 0;
-            //deletes line that is defined by input
+            int forLineCount = 0;
 
             using (StreamWriter sw = new StreamWriter(armorList))
             {
                 foreach (var line in readText)
                 {
-                    if (counter == 0)// first line of text
+                    if (forLineCount == 0)
                     {
                         sw.WriteLine(line);
-                        counter++;
+                        forLineCount++;
                     }
 
-                    else if (line.Contains(input))//line to remove
+                    else if (line.Contains(input))
                     {
                         sw.Write("");
                     }
                     else
                     {
                         string newLine = line.Remove(0, 3);
-                        sw.WriteLine($"{counter}. {newLine}");
-                        counter++;
+                        sw.WriteLine($"{forLineCount}. {newLine}");
+                        forLineCount++;
                     }
                 }
             }
+        }
 
-
-
-            //string[] lines = File.ReadAllLines(armorList);
-
-
-            //string stringInput = Convert.ToString(count);
-
-
-            //using (StreamWriter sw = File.CreateText(armorList))
-            //{
-            //    foreach (var line in lines)
-            //    {
-
-
-            //        if (count == 0)
-            //        {
-            //            sw.WriteLine(line);
-            //            //count++;
-            //        }
-
-            //        else if (lines[input].StartsWith(stringInput))
-            //        {
-            //            sw.Write("");
-            //            //count++;
-            //        }
-            //        else
-            //        {
-            //            line.Remove(0, 3);
-            //            sw.WriteLine($"{line}");
-            //            count++;
-            //        }
-            //    }
-
-
-            //}
+        public void ResetArmorListPlayer ()
+        {
+            File.WriteAllText(armorList, "");
         }
     }
 }

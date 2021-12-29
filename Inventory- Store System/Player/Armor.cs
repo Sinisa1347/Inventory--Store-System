@@ -72,16 +72,12 @@ namespace Inventory__Store_System.Player
             {
                 File.AppendAllText(armorList, "Name, defense status(1 - 5), weight(1 - 10), price(1 - ...);\n");
                 File.AppendAllText(armorList, $"{numberOfLines+1}. {armor}\n");
-                
             }
             else
             {
-                
                 File.AppendAllText(armorList, $"{numberOfLines}. {armor}\n");
                 
             }
-
-
         }
 
         public void CheckArmorAvaibility()

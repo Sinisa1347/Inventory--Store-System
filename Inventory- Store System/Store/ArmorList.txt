@@ -1,5 +1,5 @@
 Name, defense status(1-5), weight(1-10), price(1-...)
 1. Heavy armor,5,9,20;
-2. Light armor,3,6,15;
-3. Knight's armor,5,10,25;
-4. Thiefs armor,1,1,5;
+2. Knight's armor,5,10,25;
+3. Light armor,3,6,15;
+4. Thiefs armor,2,4,10;

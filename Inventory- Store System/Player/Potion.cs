@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Inventory__Store_System.Player
 {
-    internal class Potion
+    public class Potion
     {
         //hp potions has name,hp restored,  weight,  price,
 
@@ -27,12 +27,12 @@ namespace Inventory__Store_System.Player
 
         private int _hpRestored;// for hp restored
 
-        public void SetDefenseStatus(int hpRestored)
+        public void SetHpRestored(int hpRestored)
         {
             _hpRestored = hpRestored;
         }
 
-        public int GetDefenseStatus()
+        public int GetHpRestored()
         {
             return _hpRestored;
         }
@@ -61,43 +61,68 @@ namespace Inventory__Store_System.Player
             return _price;
         }
 
-        public void BoughtPotion(string _name, int _hpRestored, int _weight, int _price)
+
+        public void BoughtPotion(string potion)
+        {
+            string readText = File.ReadAllText(potionList);
+            string[] readTextLines = File.ReadAllLines(potionList);
+            int numberOfLines = readTextLines.Length;
+
+            if (readText == "")
+            {
+                File.AppendAllText(potionList, "Name, hp restored(1 - 5), weight(1 - 10), price(1 - ...);\n");
+                File.AppendAllText(potionList, $"{numberOfLines + 1}. {potion}\n");
+            }
+            else
+            {
+                File.AppendAllText(potionList, $"{numberOfLines}. {potion}\n");
+
+            }
+        }
+
+        public void CheckPotionAvaibility()
         {
 
-            Console.WriteLine($"Name:{_name},HP restored: {_hpRestored}, weight: {_weight}, price: {_price}");
+            var allLines = File.ReadLines(potionList);
+
+            foreach (var line in allLines)
+            {
+                Console.WriteLine(line);
+            }
+        }
+
+        public void SoldPotionToStore(string input)//input is input for line number
+        {
+            string[] readText = File.ReadAllLines(potionList);
+            int forLineCount = 0;
+
             using (StreamWriter sw = new StreamWriter(potionList))
             {
-                sw.WriteLine($"\nName:{_name},HP restored: {_hpRestored}, weight: {_weight}, price: {_price}\n");
-            }
-        }
-
-        public void CheckPotion()
-        {
-            using (StreamReader sr = new StreamReader(potionList))
-            {
-                Console.WriteLine(sr.ReadToEnd());
-
-            }
-        }
-
-        public void SoldPotion(string _name, int _hpRestored, int _weight, int _price)
-        {
-
-            Console.WriteLine($"Name:{_name},HP restored: {_hpRestored}, weight: {_weight}, price: {_price}");
-            using (StreamReader sr = new StreamReader(potionList))
-            {
-                string armourList = sr.ToString();
-                if (potionList.Contains($"Name:{_name},HP restored: {_hpRestored}, weight: {_weight}, price: {_price}"))
+                foreach (var line in readText)
                 {
-                    armourList.Replace($"Name:{_name},HP restored: {_hpRestored}, weight: {_weight}, price: {_price}", "\b");
-                }
-                else
-                {
-                    Console.WriteLine("");
+                    if (forLineCount == 0)
+                    {
+                        sw.WriteLine(line);
+                        forLineCount++;
+                    }
+
+                    else if (line.Contains(input))
+                    {
+                        sw.Write("");
+                    }
+                    else
+                    {
+                        string newLine = line.Remove(0, 3);
+                        sw.WriteLine($"{forLineCount}. {newLine}");
+                        forLineCount++;
+                    }
                 }
             }
         }
 
-
+        public void ResetPotionListPlayer()
+        {
+            File.WriteAllText(potionList, "");
+        }
     }
 }

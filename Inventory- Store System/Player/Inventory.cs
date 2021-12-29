@@ -15,12 +15,6 @@ namespace Inventory__Store_System.Player
         
         string inventoryWeightLeft = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Player\InventoryWeightLeft.txt";
 
-        //public void SetWeight()
-        //{
-        //    File.AppendAllText(inventoryWeightLeft, $"{maxWeight}");
-        //    Console.WriteLine($"Current weight is  {maxWeight}");
-        //}
-
         public int CheckForLeftWeight()
         {
             if (File.ReadAllText(inventoryWeightLeft)=="")
@@ -36,6 +30,12 @@ namespace Inventory__Store_System.Player
                 return leftWeight;
 
             }
+        }
+
+        public int LeftWeightValue ()
+        {
+            int leftWeightValue = Convert.ToInt32(File.ReadAllText(inventoryWeightLeft));
+            return leftWeightValue;
         }
 
         public int SubtractBoughtStuffWeightFromMaxWeight (int boughStuffWeight)

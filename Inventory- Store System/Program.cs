@@ -19,19 +19,18 @@ namespace Inventory__Store_System
         {
             int returnToStart = 0;
 
-            //int counterForArmorListPlayer = 1;
-            //int counterForArmorListStore = 1;
-
-            //var enteredWeight = new Player.Inventory();
+            Console.ForegroundColor = ConsoleColor.Cyan;
             
 
             while (returnToStart==0)
             {
 
+
+                Console.Title = "Inventory Store System";
                 Console.WriteLine("Welcome to my humble store system");
                 Console.WriteLine("Are you a:");
-                Console.WriteLine("1. buyer");
-                Console.WriteLine("2. seller");
+                Console.WriteLine("1. Player");
+                Console.WriteLine("2. Store");
                 Console.WriteLine("9. Reset the program");
                 Console.WriteLine("0. Type 0 to exit the program");
 
@@ -47,13 +46,14 @@ namespace Inventory__Store_System
                 if (readNumber == 0)
                     Environment.Exit(0);
 
-                else if (readNumber==1)//buyer-inventory weight check
+                else if (readNumber==1)
                 {
                    int returnInt = 0;               
                    Console.Clear();
 
-                    while (returnInt==0)//first going back
+                    while (returnInt==0)
                     {
+                        Console.Title = "Player";
                         Console.WriteLine("1. Check inventory weight:");
                         Console.WriteLine("2. Check money:");
                         Console.WriteLine("3. Check armor availability:");
@@ -136,7 +136,8 @@ namespace Inventory__Store_System
 
                         else if (enteredNumber == 6)
                         {
-                            while (returnInt == 0)
+                            int enteredZero = 0;
+                            while (enteredZero == 0)
                             {
                                 Console.WriteLine("What would you like to buy?");
                                 Console.WriteLine("1. Armor");
@@ -162,12 +163,12 @@ namespace Inventory__Store_System
                                         Console.WriteLine("----------------------");
 
                                         
-                                        var storeArmor = new Store.Armor();//check store armor avaibility
+                                        var storeArmor = new Store.Armor();
                                         storeArmor.CheckArmorAvaibility();
 
                                         Console.WriteLine("---------");
                                         Console.WriteLine("0. Go back");
-                                        int chosenNumber = Convert.ToInt32(Console.ReadLine());//input is chosenNumber
+                                        int chosenNumber = Convert.ToInt32(Console.ReadLine());
 
                                         if (chosenNumber == 0)
                                         {
@@ -182,7 +183,7 @@ namespace Inventory__Store_System
 
                                             Console.Clear();
 
-                                            Console.WriteLine("Are you sure you want to buy this item:");//confirm choise
+                                            Console.WriteLine("Are you sure you want to buy this item:");
                                             Console.WriteLine("1. yes");
                                             Console.WriteLine("2. no");
 
@@ -200,14 +201,27 @@ namespace Inventory__Store_System
                                                 double costOfBoughtArmor = Convert.ToDouble(removedSemicolon);
                                                 var costOfArmor = new Player.Money();
                                                 double checkForLeftMoney = costOfArmor.LeftMoneyValue();
+                                                double remainingMoney = checkForLeftMoney - costOfBoughtArmor;
+
 
 
                                                 string[] splitForWeight = textWithoutNumber.Split(",");
                                                 int WeightOfBoughtArmor = Convert.ToInt32(splitForWeight[2]);
                                                 var weightCheck = new Player.Inventory();
                                                 int checkInventoryWeight = weightCheck.LeftWeightValue();
+                                                double remainingWeight = checkInventoryWeight - WeightOfBoughtArmor;
 
-                                                if (checkForLeftMoney-costOfBoughtArmor<0)
+                                                if (remainingMoney < 0 && remainingWeight < 0)
+                                                {
+                                                    Console.WriteLine("You don't have enough money and you can't carry anymore stuff");
+                                                    Console.WriteLine("Press 0 to go back");
+                                                    int goBack = Convert.ToInt32(Console.ReadLine());
+                                                    if (goBack == 0)
+                                                        returning = 0;
+                                                    Console.Clear();
+                                                }
+                                                
+                                                else if (remainingMoney < 0)
                                                 {
                                                     Console.WriteLine("You don't have enough money");
                                                     Console.WriteLine("Press 0 to go back");
@@ -217,7 +231,7 @@ namespace Inventory__Store_System
                                                     Console.Clear();
                                                 }
 
-                                                else if (checkInventoryWeight-WeightOfBoughtArmor < 0)
+                                                else if (remainingWeight < 0)
                                                 {
                                                     Console.WriteLine("You can't carry anymore stuff");
                                                     Console.WriteLine("Press 0 to go back");
@@ -233,16 +247,20 @@ namespace Inventory__Store_System
                                                     int leftWeight = weightCheck.SubtractBoughtStuffWeightFromMaxWeight(WeightOfBoughtArmor);
 
                                                     Console.WriteLine("Adding the next item to you inventory:");
-                                                    Console.WriteLine(readText[chosenNumber]);//text start from 0 index of readText
+                                                    Console.WriteLine(readText[chosenNumber]);
 
 
                                                     var addedItem = new Player.Armor();
                                                     addedItem.BoughtArmor(textWithoutNumber);
 
+                                                    
+                                                    var addedToReceipt = new Player.Receipt();
+                                                    addedToReceipt.AddBoughtItemToReceipt(textWithoutNumber);
+                                                    
 
                                                     var chosenString = Convert.ToString(chosenNumber);
                                                     chosenString = $"{chosenString}. ";
-                                                    var deleteItem = new Store.Armor();//method for deleting bought stuff
+                                                    var deleteItem = new Store.Armor();
                                                     deleteItem.soldArmorToPlayer(chosenString);
 
                                                     Console.WriteLine("0. go back");
@@ -251,7 +269,7 @@ namespace Inventory__Store_System
 
                                                     if (input == 0)
                                                     {
-                                                        //weightLeftForWhileLoop = 0;
+
                                                         returning = 0;
                                                         Console.Clear();
                                                     }
@@ -290,12 +308,12 @@ namespace Inventory__Store_System
                                         Console.WriteLine("----------------------");
 
 
-                                        var storePotion = new Store.Potion();//check store armor avaibility
+                                        var storePotion = new Store.Potion();
                                         storePotion.CheckPotionAvaibility();
 
                                         Console.WriteLine("---------");
                                         Console.WriteLine("0. Go back");
-                                        int chosenNumber = Convert.ToInt32(Console.ReadLine());//input is chosenNumber
+                                        int chosenNumber = Convert.ToInt32(Console.ReadLine());
 
                                         if (chosenNumber == 0)
                                         {
@@ -310,7 +328,7 @@ namespace Inventory__Store_System
 
                                             Console.Clear();
 
-                                            Console.WriteLine("Are you sure you want to buy this item:");//confirm choise
+                                            Console.WriteLine("Are you sure you want to buy this item:");
                                             Console.WriteLine("1. yes");
                                             Console.WriteLine("2. no");
 
@@ -361,16 +379,20 @@ namespace Inventory__Store_System
                                                     int leftWeight = weightCheck.SubtractBoughtStuffWeightFromMaxWeight(WeightOfBoughtPotion);
 
                                                     Console.WriteLine("Adding the next item to you inventory:");
-                                                    Console.WriteLine(readText[chosenNumber]);//text start from 0 index of readText
+                                                    Console.WriteLine(readText[chosenNumber]);
 
 
                                                     var addedItem = new Player.Potion();
                                                     addedItem.BoughtPotion(textWithoutNumber);
 
+                                                    
+                                                    var addedToReceipt = new Player.Receipt();
+                                                    addedToReceipt.AddBoughtItemToReceipt(textWithoutNumber);
+                                                    
 
                                                     var chosenString = Convert.ToString(chosenNumber);
                                                     chosenString = $"{chosenString}. ";
-                                                    var deleteItem = new Store.Potion();//method for deleting bought stuff
+                                                    var deleteItem = new Store.Potion();
                                                     deleteItem.SoldPotionToPlayer(chosenString);
 
                                                     Console.WriteLine("0. go back");
@@ -379,7 +401,6 @@ namespace Inventory__Store_System
 
                                                     if (input == 0)
                                                     {
-                                                        //weightLeftForWhileLoop = 0;
                                                         returning = 0;
                                                         Console.Clear();
                                                     }
@@ -418,12 +439,12 @@ namespace Inventory__Store_System
                                         Console.WriteLine("----------------------");
 
 
-                                        var storeWeapon = new Store.Weapon();//check store armor avaibility
+                                        var storeWeapon = new Store.Weapon();
                                         storeWeapon.CheckWeaponAvaibility();
 
                                         Console.WriteLine("---------");
                                         Console.WriteLine("0. Go back");
-                                        int chosenNumber = Convert.ToInt32(Console.ReadLine());//input is chosenNumber
+                                        int chosenNumber = Convert.ToInt32(Console.ReadLine());
 
                                         if (chosenNumber == 0)
                                         {
@@ -438,7 +459,7 @@ namespace Inventory__Store_System
 
                                             Console.Clear();
 
-                                            Console.WriteLine("Are you sure you want to buy this item:");//confirm choise
+                                            Console.WriteLine("Are you sure you want to buy this item:");
                                             Console.WriteLine("1. yes");
                                             Console.WriteLine("2. no");
 
@@ -489,16 +510,18 @@ namespace Inventory__Store_System
                                                     int leftWeight = weightCheck.SubtractBoughtStuffWeightFromMaxWeight(WeightOfBoughtWeapon);
 
                                                     Console.WriteLine("Adding the next item to you inventory:");
-                                                    Console.WriteLine(readText[chosenNumber]);//text start from 0 index of readText
+                                                    Console.WriteLine(readText[chosenNumber]);
 
 
                                                     var addedItem = new Player.Weapon();
                                                     addedItem.BoughtWeapon(textWithoutNumber);
 
+                                                    var addedToReceipt = new Player.Receipt();
+                                                    addedToReceipt.AddBoughtItemToReceipt(textWithoutNumber);
 
                                                     var chosenString = Convert.ToString(chosenNumber);
                                                     chosenString = $"{chosenString}. ";
-                                                    var deleteItem = new Store.Weapon();//method for deleting bought stuff
+                                                    var deleteItem = new Store.Weapon();
                                                     deleteItem.soldWeaponToPlayer(chosenString);
 
                                                     Console.WriteLine("0. go back");
@@ -507,15 +530,10 @@ namespace Inventory__Store_System
 
                                                     if (input == 0)
                                                     {
-                                                        //weightLeftForWhileLoop = 0;
                                                         returning = 0;
                                                         Console.Clear();
                                                     }
-
                                                 }
-
-
-
                                             }
 
                                             else if (check == 2)
@@ -524,8 +542,6 @@ namespace Inventory__Store_System
                                                 returning = 0;
                                                 Console.Clear();
                                             }
-
-
                                         }
 
                                     }
@@ -533,14 +549,17 @@ namespace Inventory__Store_System
 
                                 else if (choise == 0)
                                 {
-                                    break;
+                                    enteredZero = 1;
+                                    returnInt = 0;
+
                                 }
                             }
                         }
 
                         else if (enteredNumber == 7)
                         {
-                            while (returnInt == 0)
+                            int enteredZero = 0;
+                            while (enteredZero == 0)
                             {
                                 Console.WriteLine("What would you like to sell?");
                                 Console.WriteLine("1. Armor");
@@ -557,7 +576,7 @@ namespace Inventory__Store_System
 
                                     while (returning == 0)
                                     {
-                                        var playerArmor = new Player.Armor();//check player armor avaibility
+                                        var playerArmor = new Player.Armor();
                                         playerArmor.CheckArmorAvaibility();
 
                                         Console.WriteLine("---------");
@@ -578,6 +597,7 @@ namespace Inventory__Store_System
                                             Console.Clear();
 
                                             Console.WriteLine("Are you sure you want to sell this item:");
+                                            Console.WriteLine("Selling price of bought item will be reduced by 20%");
                                             Console.WriteLine("1. yes");
                                             Console.WriteLine("2. no");
 
@@ -591,13 +611,16 @@ namespace Inventory__Store_System
                                                 string[] readText = File.ReadAllLines(armorList);
 
                                                 Console.WriteLine("Removing the next item from your inventory:");
-                                                Console.WriteLine(readText[entered]);//text start from 0 index of readText
+                                                Console.WriteLine(readText[entered]);
 
                                                 string textWithoutNumber = readText[entered].Remove(0, 3);
 
-                                                var removedItem = new Player.Armor();//methods for deleting sold stuff from Player
+                                                var removedItem = new Player.Armor();
                                                 var convertedInputToString = Convert.ToString(entered);
                                                 removedItem.SoldArmorToStore($"{convertedInputToString}. ");
+
+                                                var addedToReceipt = new Player.Receipt();
+                                                addedToReceipt.AddSoldItemToReceipt(textWithoutNumber);
 
                                                 string[] splitForCost = textWithoutNumber.Split(",");
                                                 string removedSemicolon = splitForCost[3].Remove(splitForCost[3].Length - 1, 1);
@@ -605,14 +628,15 @@ namespace Inventory__Store_System
                                                 var addCostOfSoldArmor = new Player.Money();
                                                 double reducedValue = costOfSoldArmor * 0.8;
                                                 addCostOfSoldArmor.AddSoldStuffCostToCurrentMoney(reducedValue);
+                                                reducedValue = costOfSoldArmor;
 
 
-                                                string [] weightToBeFree = textWithoutNumber.Split(",");//armor weight
+                                                 string [] weightToBeFree = textWithoutNumber.Split(",");
                                                 int weightOfSoldArmor = Convert.ToInt32(weightToBeFree[2]);
                                                 var addWeightOfSoldStuff = new Player.Inventory();
-                                                addWeightOfSoldStuff.AddSoldStuffWeightToCurrentWeight(weightOfSoldArmor);//remaining weight
+                                                addWeightOfSoldStuff.AddSoldStuffWeightToCurrentWeight(weightOfSoldArmor);
 
-                                                var addedItem = new Store.Armor();//method for adding sold stuff to Store
+                                                var addedItem = new Store.Armor();
                                                 addedItem.boughtArmorFromPlayer(readText[entered]);
                                                 
 
@@ -644,7 +668,7 @@ namespace Inventory__Store_System
 
                                     while (returning == 0)
                                     {
-                                        var playerPotion = new Player.Potion();//check player Potion avaibility
+                                        var playerPotion = new Player.Potion();
                                         playerPotion.CheckPotionAvaibility();
 
                                         Console.WriteLine("---------");
@@ -665,6 +689,7 @@ namespace Inventory__Store_System
                                             Console.Clear();
 
                                             Console.WriteLine("Are you sure you want to sell this item:");
+                                            Console.WriteLine("Selling price of bought item will be reduced by 20%");
                                             Console.WriteLine("1. yes");
                                             Console.WriteLine("2. no");
 
@@ -678,13 +703,16 @@ namespace Inventory__Store_System
                                                 string[] readText = File.ReadAllLines(potionList);
 
                                                 Console.WriteLine("Removing the next item from your inventory:");
-                                                Console.WriteLine(readText[entered]);//text start from 0 index of readText
+                                                Console.WriteLine(readText[entered]);
 
                                                 string textWithoutNumber = readText[entered].Remove(0, 3);
 
-                                                var removedItem = new Player.Potion();//methods for deleting sold stuff from Player
+                                                var removedItem = new Player.Potion();
                                                 var convertedInputToString = Convert.ToString(entered);
                                                 removedItem.SoldPotionToStore($"{convertedInputToString}. ");
+
+                                                var addedToReceipt = new Player.Receipt();
+                                                addedToReceipt.AddSoldItemToReceipt(textWithoutNumber);
 
                                                 string[] splitForCost = textWithoutNumber.Split(",");
                                                 string removedSemicolon = splitForCost[3].Remove(splitForCost[3].Length - 1, 1);
@@ -692,14 +720,15 @@ namespace Inventory__Store_System
                                                 var addCostOfSoldPotion = new Player.Money();
                                                 double reducedValue = costOfSoldPotion * 0.8;
                                                 addCostOfSoldPotion.AddSoldStuffCostToCurrentMoney(reducedValue);
+                                                reducedValue = costOfSoldPotion;
 
 
-                                                string[] weightToBeFree = textWithoutNumber.Split(",");//Potion weight
+                                                string[] weightToBeFree = textWithoutNumber.Split(",");
                                                 int weightOfSoldPotion = Convert.ToInt32(weightToBeFree[2]);
                                                 var addWeightOfSoldStuff = new Player.Inventory();
-                                                addWeightOfSoldStuff.AddSoldStuffWeightToCurrentWeight(weightOfSoldPotion);//remaining weight
+                                                addWeightOfSoldStuff.AddSoldStuffWeightToCurrentWeight(weightOfSoldPotion);
 
-                                                var addedItem = new Store.Potion();//method for adding sold stuff to Store
+                                                var addedItem = new Store.Potion();
                                                 addedItem.boughtPotionFromPlayer(readText[entered]);
 
 
@@ -709,7 +738,7 @@ namespace Inventory__Store_System
 
                                                 if (input == 0)
                                                 {
-                                                    returning = 0;
+                                                    returning = 1;
                                                     Console.Clear();
                                                 }
                                             }
@@ -731,7 +760,7 @@ namespace Inventory__Store_System
 
                                     while (returning == 0)
                                     {
-                                        var playerWeapon = new Player.Weapon();//check player Weapon avaibility
+                                        var playerWeapon = new Player.Weapon();
                                         playerWeapon.CheckWeaponAvaibility();
 
                                         Console.WriteLine("---------");
@@ -752,6 +781,7 @@ namespace Inventory__Store_System
                                             Console.Clear();
 
                                             Console.WriteLine("Are you sure you want to sell this item:");
+                                            Console.WriteLine("Selling price of bought item will be reduced by 20%");
                                             Console.WriteLine("1. yes");
                                             Console.WriteLine("2. no");
 
@@ -765,28 +795,32 @@ namespace Inventory__Store_System
                                                 string[] readText = File.ReadAllLines(WeaponList);
 
                                                 Console.WriteLine("Removing the next item from your inventory:");
-                                                Console.WriteLine(readText[entered]);//text start from 0 index of readText
+                                                Console.WriteLine(readText[entered]);
 
                                                 string textWithoutNumber = readText[entered].Remove(0, 3);
 
-                                                var removedItem = new Player.Weapon();//methods for deleting sold stuff from Player
+                                                var removedItem = new Player.Weapon();
                                                 var convertedInputToString = Convert.ToString(entered);
                                                 removedItem.SoldWeaponToStore($"{convertedInputToString}. ");
 
+                                                var addedToReceipt = new Player.Receipt();
+                                                addedToReceipt.AddSoldItemToReceipt(textWithoutNumber);
+
                                                 string[] splitForCost = textWithoutNumber.Split(",");
-                                                string removedSemicolon = splitForCost[3].Remove(splitForCost[4].Length, 1);
+                                                string removedSemicolon = splitForCost[4].Remove(splitForCost[4].Length-1, 1);
                                                 double costOfSoldWeapon = Convert.ToDouble(removedSemicolon);
                                                 var addCostOfSoldWeapon = new Player.Money();
                                                 double reducedValue = costOfSoldWeapon * 0.8;
                                                 addCostOfSoldWeapon.AddSoldStuffCostToCurrentMoney(reducedValue);
+                                                reducedValue = costOfSoldWeapon;
 
 
-                                                string[] weightToBeFree = textWithoutNumber.Split(",");//Weapon weight
+                                                string[] weightToBeFree = textWithoutNumber.Split(",");
                                                 int weightOfSoldWeapon = Convert.ToInt32(weightToBeFree[3]);
                                                 var addWeightOfSoldStuff = new Player.Inventory();
-                                                addWeightOfSoldStuff.AddSoldStuffWeightToCurrentWeight(weightOfSoldWeapon);//remaining weight
+                                                addWeightOfSoldStuff.AddSoldStuffWeightToCurrentWeight(weightOfSoldWeapon);
 
-                                                var addedItem = new Store.Weapon();//method for adding sold stuff to Store
+                                                var addedItem = new Store.Weapon();
                                                 addedItem.boughtWeaponFromPlayer(readText[entered]);
 
 
@@ -814,7 +848,8 @@ namespace Inventory__Store_System
 
                                 else if (choise == 0)
                                 {
-                                    break;
+                                    enteredZero = 1;
+                                    returnInt = 0;
                                 }
 
                             }
@@ -822,29 +857,92 @@ namespace Inventory__Store_System
 
                         else if (enteredNumber == 0)
                         {
-                            returnInt = 1;
-                            returnToStart = 0;
+
+                            string receiptList = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Player\Receipt.txt";
+                            string readReceipt = File.ReadAllText(receiptList);
+
+                            if (readReceipt == "")
+                            {
+                                returnInt = 0;
+                                returnToStart = 0;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Would you like a receipt?");
+                                Console.WriteLine("1. Yes");
+                                Console.WriteLine("2. No");
+                                int chosenOption = Convert.ToInt32(Console.ReadLine());
+                                Console.Clear();
+
+                                if (chosenOption == 1)
+                                {
+
+                                    var receiptTaken = new Player.Receipt();
+                                    string [] receiptLinesRead=receiptTaken.CheckReceipt();
+
+                                    foreach (var line in receiptLinesRead)
+                                    {
+                                        if (line == "Receipt:")
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.Cyan;
+                                            Console.WriteLine(line);
+                                        }
+
+                                        else if(line.Contains("+"))
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.Green;
+                                            Console.WriteLine(line);
+                                            
+
+                                        }
+
+                                        else if (line.Contains("-"))
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.Red;
+                                            Console.WriteLine(line);
+                                            
+                                        }
+                                    }
+
+                                    Console.ForegroundColor = ConsoleColor.Cyan;
+                                    Console.WriteLine("Press 0 to go back");
+                                    int pressedZero = Convert.ToInt32(Console.ReadLine());
+
+
+                                    if (pressedZero == 0)
+                                    {
+                                        returnInt = 1;
+                                        returnToStart = 0;
+                                        Console.Clear();
+                                    }
+
+                                    else
+                                    {
+                                        returnInt = 1;
+                                        returnToStart = 0;
+                                        Console.Clear();
+                                    }
+
+                                }
+
+                                else if (chosenOption == 2)
+                                {
+                                    returnInt = 1;
+                                    returnToStart = 0;
+                                    Console.Clear();
+                                }
+                            }
                         }
 
-
-
-                        else
-                        {
-                            Console.WriteLine("Please enter 0 if you want to go back");
-                        }
                         Console.Clear();
                     }              
                 }
 
-                else if (readNumber==2)//seller
+                else if (readNumber==2)
                 {
-
+                    Console.Title = "Store-Management";
                     while (returnToSellerBeginning == 0)
                     {
-                        
-
-                        
-
                         Console.WriteLine("Choose the category");
                         Console.WriteLine("1. Armor");
                         Console.WriteLine("2. Potion");
@@ -861,7 +959,7 @@ namespace Inventory__Store_System
                             returnToStart = 0;
                     
 
-                        if (checkInt == 1)//armor
+                        if (checkInt == 1)
                         {
                             while (returnInt==0)
                             {
@@ -895,7 +993,7 @@ namespace Inventory__Store_System
 
                                 else if (checkInt==2)
                                 {
-                                    var armorAvaibility = new Store.Armor();// proveravanje armora u prodavnici
+                                    var armorAvaibility = new Store.Armor();
                                     armorAvaibility.CheckArmorAvaibility();
                                     
 
@@ -951,7 +1049,7 @@ namespace Inventory__Store_System
 
                                 else if (checkInt == 2)
                                 {
-                                    var PotionAvaibility = new Store.Potion();// proveravanje Potiona u prodavnici
+                                    var PotionAvaibility = new Store.Potion();
                                     PotionAvaibility.CheckPotionAvaibility();
 
                                     Console.WriteLine("0. Go back");
@@ -1008,7 +1106,7 @@ namespace Inventory__Store_System
 
                                 else if (checkInt == 2)
                                 {
-                                    var WeaponAvaibility = new Store.Weapon();// proveravanje Weapona u prodavnici
+                                    var WeaponAvaibility = new Store.Weapon();
                                     WeaponAvaibility.CheckWeaponAvaibility();
 
 
@@ -1076,6 +1174,10 @@ namespace Inventory__Store_System
 
                         var resetWeaponListPlayer = new Player.Weapon();
                         resetWeaponListPlayer.ResetWeaponListPlayer();
+
+                        var resetReceiptListPlayer = new Player.Receipt();
+                        resetReceiptListPlayer.ResetReceipt();
+
                     }
                     else if (readInput==0)
                     {

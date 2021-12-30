@@ -19,13 +19,11 @@ namespace Inventory__Store_System.Player
             {
                 File.AppendAllText(moneyLeftFile, $"{moneyLeft}");
                 Console.WriteLine($"Current money is  {moneyLeft}");
-                //return moneyLeft;
             }
             else
             {
-                double leftMoney = Convert.ToInt32(File.ReadAllText(moneyLeftFile));
+                double leftMoney = Convert.ToDouble(File.ReadAllText(moneyLeftFile));
                 Console.WriteLine($"Left money is: {leftMoney}");
-                //return leftMoney;
 
             }
         }
@@ -38,7 +36,7 @@ namespace Inventory__Store_System.Player
 
         public double SubtractBoughtStuffCostFromMoneyLeft(double stuffCost)
         {
-            double leftMoney = Convert.ToInt32(File.ReadAllText(moneyLeftFile));
+            double leftMoney = Convert.ToDouble(File.ReadAllText(moneyLeftFile));
             double updatedMoney = leftMoney - stuffCost;
 
             if (updatedMoney < 0)
@@ -55,7 +53,7 @@ namespace Inventory__Store_System.Player
 
         public void AddSoldStuffCostToCurrentMoney(double soldStuffCost)
         {
-            double leftMoney = Convert.ToInt32(File.ReadAllText(moneyLeftFile));
+            double leftMoney = Convert.ToDouble(File.ReadAllText(moneyLeftFile));
             string updatedMoney = Convert.ToString(leftMoney + soldStuffCost);
 
             File.WriteAllText(moneyLeftFile, updatedMoney);

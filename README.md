@@ -4,4 +4,4 @@
 
 Navigate the application using numpad (numbers from 0-9)
 
-Every other input is going to be ignored-working on it
+Every other input is going to be ignored

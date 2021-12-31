@@ -15,12 +15,14 @@ namespace Inventory__Store_System
     public class Program
     {
         
-        static void Main(string[] args)
+        static void Main()
         {
             int returnToStart = 0;
 
             Console.ForegroundColor = ConsoleColor.Cyan;
             
+            try
+            {
 
             while (returnToStart==0)
             {
@@ -64,14 +66,15 @@ namespace Inventory__Store_System
                         Console.WriteLine("0. Go back");
 
                         Console.WriteLine("------------------");
-                        int enteredNumber = Convert.ToInt32(Console.ReadLine());                
+                        int enteredNumber = Convert.ToInt32(Console.ReadLine());    
+                        
                         Console.WriteLine("------------------");
                         
                         Console.Clear();
 
                         if (enteredNumber == 1)
                         {
-                            var inventory = new Player.Inventory();//checking remaining player weight left
+                            var inventory = new Player.Inventory();
                             int checkedWeight = inventory.CheckForLeftWeight();
 
                             Console.WriteLine("0. Go back");
@@ -80,8 +83,7 @@ namespace Inventory__Store_System
                                 returnInt = 0;
                             else
                             {
-                                Console.WriteLine("Please enter 0 if you want to go back");
-                                returnInt = 0;
+
                             }
                         }
 
@@ -934,6 +936,11 @@ namespace Inventory__Store_System
                             }
                         }
 
+                        else
+                        {
+                            returnInt = 0;
+                        }
+
                         Console.Clear();
                     }              
                 }
@@ -1192,9 +1199,39 @@ namespace Inventory__Store_System
 
                 }
 
-                
+                else
+                {
+                    returnToStart = 0;
+                }
 
             }
+            }
+
+            catch(FormatException)
+            {
+                Console.WriteLine("Please write in you input in numbers");
+                Console.WriteLine("The application will now reset so it wouldn't corrupt the data");
+                Console.ReadLine();
+                Console.Clear();
+                Main();
+            }
+            catch(PathTooLongException)
+            {
+                Console.WriteLine("Entered number is too long, please don't do that");
+                Console.WriteLine("The application will now reset so it wouldn't corrupt the data");
+                Console.ReadLine();
+                Console.Clear();
+                Main();
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("Entered number is too long, please don't do that");
+                Console.WriteLine("The application will now reset so it wouldn't corrupt the data");
+                Console.ReadLine();
+                Console.Clear();
+                Main();
+            }
+            
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Inventory__Store_System
         {
             int returnToStart = 0;
 
+            
             Console.ForegroundColor = ConsoleColor.Cyan;
             
             try
@@ -50,8 +51,9 @@ namespace Inventory__Store_System
 
                 else if (readNumber==1)
                 {
-                   int returnInt = 0;               
+                          
                    Console.Clear();
+                    int returnInt = 0; 
 
                     while (returnInt==0)
                     {
@@ -865,7 +867,7 @@ namespace Inventory__Store_System
 
                             if (readReceipt == "")
                             {
-                                returnInt = 0;
+                                returnInt = 1;
                                 returnToStart = 0;
                             }
                             else

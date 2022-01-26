@@ -9,7 +9,7 @@ namespace Inventory__Store_System.Store
 {
     public class Armor
     {
-        string armorList = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Store\ArmorList.txt";
+        string armorList = "ArmorList.txt";
 
         private string _name;//name
 

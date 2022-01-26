@@ -10,7 +10,7 @@ namespace Inventory__Store_System.Player
     public class Armor
     {
         //armour has defense status, price, weight, name
-        string armorList = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Player\ArmorList.txt";
+        string armorList = "ArmorList.txt";
         
 
         private string _name;

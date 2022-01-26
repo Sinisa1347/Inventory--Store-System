@@ -13,7 +13,7 @@ namespace Inventory__Store_System.Player
     {
         private int maxWeight = 20;
         
-        string inventoryWeightLeft = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Player\InventoryWeightLeft.txt";
+        string inventoryWeightLeft = "InventoryWeightLeft.txt";
 
         public int CheckForLeftWeight()
         {

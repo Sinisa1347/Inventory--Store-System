@@ -11,7 +11,7 @@ namespace Inventory__Store_System.Player
     {
         private double moneyLeft =40;
 
-        string moneyLeftFile = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Player\MoneyLeft.txt";
+        string moneyLeftFile = "MoneyLeft.txt";
 
         public void CheckForLeftMoney()
         {

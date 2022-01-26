@@ -183,7 +183,7 @@ namespace Inventory__Store_System
 
                                         else
                                         {
-                                            string armorList = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Store\ArmorList.txt";
+                                            string armorList = "ArmorList.txt";
 
                                             Console.Clear();
 
@@ -328,7 +328,7 @@ namespace Inventory__Store_System
 
                                         else
                                         {
-                                            string potionList = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Store\PotionList.txt";
+                                            string potionList = "PotionList.txt";
 
                                             Console.Clear();
 
@@ -459,7 +459,7 @@ namespace Inventory__Store_System
 
                                         else
                                         {
-                                            string weaponList = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Store\WeaponList.txt";
+                                            string weaponList = "WeaponList.txt";
 
                                             Console.Clear();
 
@@ -596,7 +596,7 @@ namespace Inventory__Store_System
 
                                         else
                                         {
-                                            string armorList = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Player\ArmorList.txt";
+                                            string armorList = "ArmorList.txt";
 
                                             Console.Clear();
 
@@ -688,7 +688,7 @@ namespace Inventory__Store_System
 
                                         else
                                         {
-                                            string potionList = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Player\PotionList.txt";
+                                            string potionList = "PotionList.txt";
 
                                             Console.Clear();
 
@@ -780,7 +780,7 @@ namespace Inventory__Store_System
 
                                         else
                                         {
-                                            string WeaponList = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Player\WeaponList.txt";
+                                            string WeaponList = "WeaponList.txt";
 
                                             Console.Clear();
 
@@ -862,7 +862,7 @@ namespace Inventory__Store_System
                         else if (enteredNumber == 0)
                         {
 
-                            string receiptList = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Player\Receipt.txt";
+                            string receiptList = "Receipt.txt";
                             string readReceipt = File.ReadAllText(receiptList);
 
                             if (readReceipt == "")

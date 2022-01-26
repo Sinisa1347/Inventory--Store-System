@@ -11,7 +11,7 @@ namespace Inventory__Store_System.Player
     {
         //hp potions has name,hp restored,  weight,  price,
 
-        string potionList = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Player\PotionList.txt";
+        string potionList = "PotionList.txt";
 
         private string _name;//name
 

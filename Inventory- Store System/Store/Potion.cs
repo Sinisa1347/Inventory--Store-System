@@ -9,7 +9,7 @@ namespace Inventory__Store_System.Store
 {
      public class Potion
     {
-            string potionList = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Store\PotionList.txt";
+            string potionList = "PotionList.txt";
 
             private string _name;//name
             public void SetName(string name)

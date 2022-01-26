@@ -11,7 +11,7 @@ namespace Inventory__Store_System.Player
     {
         //weapons have name, damage output, effective range,  weight, price,
 
-        string weaponList = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Player\WeaponList.txt";
+        string weaponList = "WeaponList.txt";
 
         private string _name;//name
 

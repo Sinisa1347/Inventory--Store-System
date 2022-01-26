@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Inventory__Store_System.Store
 {
     public class Weapon
     {
-        string weaponList = @"C:\Downloads\## UNITY I GIT\Inventory (Player)-Store System\Inventory- Store System\Inventory- Store System\Store\WeaponList.txt";
+        string weaponList ="WeaponList.txt";
 
         private string _name;//name
 

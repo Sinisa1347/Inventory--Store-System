@@ -11,7 +11,7 @@ namespace Inventory__Store_System.Player
     {
         private double moneyLeft =40;
 
-        string moneyLeftFile = "MoneyLeft.txt";
+        string moneyLeftFile = "Player/MoneyLeft.txt";
 
         public void CheckForLeftMoney()
         {

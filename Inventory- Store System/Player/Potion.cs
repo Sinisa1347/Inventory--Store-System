@@ -11,7 +11,7 @@ namespace Inventory__Store_System.Player
     {
         //hp potions has name,hp restored,  weight,  price,
 
-        string potionList = "PotionList.txt";
+        string potionList = "Player/PotionList.txt";
 
         private string _name;//name
 

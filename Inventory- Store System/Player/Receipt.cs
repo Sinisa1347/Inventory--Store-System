@@ -9,7 +9,7 @@ namespace Inventory__Store_System.Player
 {
     public class Receipt
     {
-        string receiptLocation = "Receipt.txt";
+        string receiptLocation = "Player/Receipt.txt";
 
         public void AddSoldItemToReceipt(string soldItem)
         {

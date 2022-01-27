@@ -9,7 +9,7 @@ namespace Inventory__Store_System.Store
 {
      public class Potion
     {
-            string potionList = "PotionList.txt";
+            string potionList = "Store/PotionList.txt";
 
             private string _name;//name
             public void SetName(string name)

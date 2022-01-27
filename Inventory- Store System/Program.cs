@@ -183,7 +183,7 @@ namespace Inventory__Store_System
 
                                         else
                                         {
-                                            string armorList = "ArmorList.txt";
+                                            string armorList = "Store/ArmorList.txt";
 
                                             Console.Clear();
 
@@ -328,7 +328,7 @@ namespace Inventory__Store_System
 
                                         else
                                         {
-                                            string potionList = "PotionList.txt";
+                                            string potionList = "Store/PotionList.txt";
 
                                             Console.Clear();
 
@@ -459,7 +459,7 @@ namespace Inventory__Store_System
 
                                         else
                                         {
-                                            string weaponList = "WeaponList.txt";
+                                            string weaponList = "Store/WeaponList.txt";
 
                                             Console.Clear();
 
@@ -596,7 +596,7 @@ namespace Inventory__Store_System
 
                                         else
                                         {
-                                            string armorList = "ArmorList.txt";
+                                            string armorList = "Player/ArmorList.txt";
 
                                             Console.Clear();
 
@@ -688,7 +688,7 @@ namespace Inventory__Store_System
 
                                         else
                                         {
-                                            string potionList = "PotionList.txt";
+                                            string potionList = "Player/PotionList.txt";
 
                                             Console.Clear();
 
@@ -780,7 +780,7 @@ namespace Inventory__Store_System
 
                                         else
                                         {
-                                            string WeaponList = "WeaponList.txt";
+                                            string WeaponList = "Player/WeaponList.txt";
 
                                             Console.Clear();
 
@@ -862,7 +862,7 @@ namespace Inventory__Store_System
                         else if (enteredNumber == 0)
                         {
 
-                            string receiptList = "Receipt.txt";
+                            string receiptList = "Player/Receipt.txt";
                             string readReceipt = File.ReadAllText(receiptList);
 
                             if (readReceipt == "")

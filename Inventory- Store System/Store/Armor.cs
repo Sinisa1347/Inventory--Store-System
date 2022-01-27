@@ -9,7 +9,7 @@ namespace Inventory__Store_System.Store
 {
     public class Armor
     {
-        string armorList = "ArmorList.txt";
+        string armorList = "Store/ArmorList.txt";
 
         private string _name;//name
 

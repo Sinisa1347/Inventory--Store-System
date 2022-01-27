@@ -13,7 +13,7 @@ namespace Inventory__Store_System.Player
     {
         private int maxWeight = 20;
         
-        string inventoryWeightLeft = "InventoryWeightLeft.txt";
+        string inventoryWeightLeft = "Player/InventoryWeightLeft.txt";
 
         public int CheckForLeftWeight()
         {

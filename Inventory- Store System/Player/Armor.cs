@@ -10,7 +10,7 @@ namespace Inventory__Store_System.Player
     public class Armor
     {
         //armour has defense status, price, weight, name
-        string armorList = "ArmorList.txt";
+        string armorList = "Player/ArmorList.txt";
         
 
         private string _name;

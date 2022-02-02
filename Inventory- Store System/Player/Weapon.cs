@@ -11,6 +11,8 @@ namespace Inventory__Store_System.Player
     {
         //weapons have name, damage output, effective range,  weight, price,
 
+        
+
         string weaponList = "Player/WeaponList.txt";
 
         private string _name;//name

@@ -68,7 +68,13 @@ namespace Inventory__Store_System.Store
                 Console.WriteLine("Press 0 if you have changed you mind");
                 var readText = Console.ReadLine();
 
-                if (numberOfLines == 0)
+                if (readText == "0")
+                {
+                    File.AppendAllText(potionList, "");
+                }
+
+
+                else if (numberOfLines == 0)
                 {
                     File.AppendAllText(potionList, "Name, hp restored(1 - 3), weight(1 - 10), price(1 - ...);\n");
                     File.AppendAllText(potionList, $"{numberOfLines + 1}. {readText};\n");
@@ -78,11 +84,6 @@ namespace Inventory__Store_System.Store
                 {
                     File.AppendAllText(potionList, $"{numberOfLines}. {readText};\n");
 
-                }
-
-                else if (readText == "0")
-                {
-                    File.AppendAllText(potionList, "");
                 }
 
 

@@ -82,7 +82,13 @@ namespace Inventory__Store_System.Store
             Console.WriteLine("Press 0 if you have changed you mind");
             var readText = Console.ReadLine();
 
-            if (numberOfLines == 0)
+            if (readText == "0")
+            {
+                File.AppendAllText(weaponList, "");
+            }
+
+
+            else if (numberOfLines == 0)
             {
                 File.AppendAllText(weaponList, "Name, damage output(1 - 5), effective range(1-5), weight(1 - 10), price(1 - ...)\n");
                 File.AppendAllText(weaponList, $"{numberOfLines + 1}. {readText};\n");
@@ -94,10 +100,6 @@ namespace Inventory__Store_System.Store
 
             }
 
-            else if (readText == "0")
-            {
-                File.AppendAllText(weaponList, "");
-            }
 
 
         }

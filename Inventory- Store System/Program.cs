@@ -12,11 +12,17 @@ using Store = Inventory__Store_System.Store;
 
 namespace Inventory__Store_System
 {
+
     public class Program
     {
-        
+
         static void Main()
         {
+            MovingFiles.CopyFolderPlayer(".\\..\\..\\..\\Player", ".\\Player");
+            MovingFiles.CopyFolderStore(".\\..\\..\\..\\Store", ".\\Store");
+            //string fullPathForPlayer = "..\\bin\\Debug\\net6.0\\Player";
+
+
             int returnToStart = 0;
 
             
@@ -37,10 +43,12 @@ namespace Inventory__Store_System
                 Console.WriteLine("9. Reset the program");
                 Console.WriteLine("0. Type 0 to exit the program");
 
-                
                 int returnToSellerBeginning = 0;
 
-                Console.WriteLine("------------------");
+                    //Directory.Move("Inventory- Store System/Player", "Inventory- Store System/bin/Debug/net6.0");
+                    //Directory.Move("Inventory- Store System/Store", "Inventory- Store System/bin/Debug/net6.0");
+
+                    Console.WriteLine("------------------");
                 int readNumber = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("------------------");
 
@@ -1233,7 +1241,79 @@ namespace Inventory__Store_System
                 Console.Clear();
                 Main();
             }
-            
+
         }
+
+
+
+
     }
+
+    public class MovingFiles
+    {
+        static string fullPathForPlayer = "Player";
+        static string fullPathForStore = "Store";
+        //MovingFiles.CopyFolder(".\\..\\..\\..\\Player", "bin\\Debug\\net6.0\\Player");
+        static public void CopyFolderPlayer(string sourceFolder, string destFolder)
+        {
+
+            if (!Directory.Exists(destFolder))
+                Directory.CreateDirectory(destFolder);
+
+            string[] files = Directory.GetFiles(sourceFolder);
+            foreach (string file in files)
+            {
+                string name = Path.GetFileName(file);
+                //string dest = $"{destFolder}\\file";
+                string dest = Path.Combine(fullPathForPlayer, name);
+
+                try
+                {
+                    File.Copy(file, dest);
+                }
+                catch (System.IO.IOException)
+                {
+                    
+                }
+                finally
+                {
+                    Console.Write("");
+                }
+                //File.Replace(file, dest);
+                //Console.ReadLine();
+            }
+
+        }
+
+        static public void CopyFolderStore(string sourceFolder, string destFolder)
+        {
+
+            if (!Directory.Exists(destFolder))
+                Directory.CreateDirectory(destFolder);
+
+            string[] files = Directory.GetFiles(sourceFolder);
+            foreach (string file in files)
+            {
+                string name = Path.GetFileName(file);
+                //string dest = $"{destFolder}\\file";
+                string dest = Path.Combine(fullPathForStore, name);
+                try
+                {
+                    File.Copy(file, dest);
+                }
+                catch (System.IO.IOException)
+                {
+
+                }
+                finally
+                {
+                    Console.Write("");
+                }
+            }
+
+        }
+
+
+    }
+
 }

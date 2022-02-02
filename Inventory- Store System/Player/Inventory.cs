@@ -17,6 +17,24 @@ namespace Inventory__Store_System.Player
 
         public int CheckForLeftWeight()
         {
+            //int i = 0;
+            ////using (FileStream stream = File.Open("C:\\Downloads\\## UNITY I GIT\\InventoryStoreProject\\Inventory- Store System\\Player\\InventoryWeightLeft.txt", FileMode.Open))
+            //using (FileStream stream = File.Open(".\\..\\..\\..\\Player\\InventoryWeightLeft.txt", FileMode.Open))
+            //{
+            //    StreamReader reader = new StreamReader(stream);
+            //    int a = reader.Read();
+            //    Console.WriteLine(a);
+            //    i = a;
+            //}
+
+            //return i;
+            
+            //using (BinaryWriter writer = new BinaryWriter(stream))
+            //{
+            //    writer.Write(303);
+            //    writer.Write(720);
+            //}
+
             if (File.ReadAllText(inventoryWeightLeft)=="")
             {
                 File.AppendAllText(inventoryWeightLeft, $"{maxWeight}");

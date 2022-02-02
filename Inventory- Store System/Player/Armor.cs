@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace Inventory__Store_System.Player
 {
+    
+
     public class Armor
     {
+        
+
         //armour has defense status, price, weight, name
         string armorList = "Player/ArmorList.txt";
         

@@ -11,53 +11,21 @@ namespace Inventory__Store_System.Store
     {
         string armorList = "Store/ArmorList.txt";
 
-        private string _name;//name
+        private string _name;
+        public string Name { get; set; }
 
-        public void SetName(string name)
-        {
-            _name = name;
-        }
 
-        public string GetName()
-        {
-            return _name;
-        }
+        private int _defenseStatus;
+        public int DefenseStatus { get; set; }
 
-        private int _defenseStatus;// for defense status
 
-        public void SetDefenseStatus(int defenseStatus)
-        {
-            _defenseStatus = defenseStatus;
-        }
+        private int _weight;
+        public int Weight { get; set; }
 
-        public int GetDefenseStatus()
-        {
-            return _defenseStatus;
-        }
 
-        private int _weight;//for weight
+        private int _price;
+        public int Price { get; set; }
 
-        public void SetWeight(int weight)
-        {
-            _weight = weight;
-        }
-
-        public int GetWeight()
-        {
-            return _weight;
-        }
-
-        private int _price;// for price
-
-        public void SetPrice(int price)
-        {
-            _price = price;
-        }
-
-        public int GetPrice()
-        {
-            return _price;
-        }
 
         public void ArmorShipment()
         {

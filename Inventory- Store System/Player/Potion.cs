@@ -14,52 +14,16 @@ namespace Inventory__Store_System.Player
         string potionList = "Player/PotionList.txt";
 
         private string _name;//name
+        public string Name { get; set; }
 
-        public void SetName(string name)
-        {
-            _name = name;
-        }
+        private int _hpRestored;
+        public int HpRestored { get; set; }
 
-        public string GetName()
-        {
-            return _name;
-        }
+        private int _weight;
+        public int Weight { get; set; }
 
-        private int _hpRestored;// for hp restored
-
-        public void SetHpRestored(int hpRestored)
-        {
-            _hpRestored = hpRestored;
-        }
-
-        public int GetHpRestored()
-        {
-            return _hpRestored;
-        }
-
-        private int _weight;//for weight
-
-        public void SetWeight(int weight)
-        {
-            _weight = weight;
-        }
-
-        public int GetWeight()
-        {
-            return _weight;
-        }
-
-        private int _price;// for price
-
-        public void SetPrice(int price)
-        {
-            _price = price;
-        }
-
-        public int GetPrice()
-        {
-            return _price;
-        }
+        private int _price;
+        public int Price { get; set; }
 
 
         public void BoughtPotion(string potion)

@@ -20,7 +20,6 @@ namespace Inventory__Store_System
         {
             MovingFiles.CopyFolderPlayer(".\\..\\..\\..\\Player", ".\\Player");
             MovingFiles.CopyFolderStore(".\\..\\..\\..\\Store", ".\\Store");
-            //string fullPathForPlayer = "..\\bin\\Debug\\net6.0\\Player";
 
 
             int returnToStart = 0;
@@ -44,9 +43,6 @@ namespace Inventory__Store_System
                 Console.WriteLine("0. Type 0 to exit the program");
 
                 int returnToSellerBeginning = 0;
-
-                    //Directory.Move("Inventory- Store System/Player", "Inventory- Store System/bin/Debug/net6.0");
-                    //Directory.Move("Inventory- Store System/Store", "Inventory- Store System/bin/Debug/net6.0");
 
                     Console.WriteLine("------------------");
                 int readNumber = Convert.ToInt32(Console.ReadLine());
@@ -1253,7 +1249,7 @@ namespace Inventory__Store_System
     {
         static string fullPathForPlayer = "Player";
         static string fullPathForStore = "Store";
-        //MovingFiles.CopyFolder(".\\..\\..\\..\\Player", "bin\\Debug\\net6.0\\Player");
+
         static public void CopyFolderPlayer(string sourceFolder, string destFolder)
         {
 
@@ -1264,7 +1260,7 @@ namespace Inventory__Store_System
             foreach (string file in files)
             {
                 string name = Path.GetFileName(file);
-                //string dest = $"{destFolder}\\file";
+
                 string dest = Path.Combine(fullPathForPlayer, name);
 
                 try
@@ -1279,8 +1275,7 @@ namespace Inventory__Store_System
                 {
                     Console.Write("");
                 }
-                //File.Replace(file, dest);
-                //Console.ReadLine();
+
             }
 
         }
@@ -1295,7 +1290,7 @@ namespace Inventory__Store_System
             foreach (string file in files)
             {
                 string name = Path.GetFileName(file);
-                //string dest = $"{destFolder}\\file";
+
                 string dest = Path.Combine(fullPathForStore, name);
                 try
                 {

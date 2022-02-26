@@ -16,64 +16,23 @@ namespace Inventory__Store_System.Player
         string weaponList = "Player/WeaponList.txt";
 
         private string _name;//name
+        public string Name { get; set; }
 
-        public void SetName(string name)
-        {
-            _name = name;
-        }
-
-        public string GetName()
-        {
-            return _name;
-        }
 
         private int _damageOutput;// for damage output
+        public int DamageOutput { get; set; }
 
-        public void SetDefenseStatus(int damageOutput)
-        {
-            _damageOutput = damageOutput;
-        }
-
-        public int GetDefenseStatus()
-        {
-            return _damageOutput;
-        }
 
         private int _effectiveRange;//for effective range
+        public int EffextiveRange { get; set; }
 
-        public void SetEffectiveRange(int effectiveRange)
-        {
-            _effectiveRange = effectiveRange;
-        }
-
-        public int GetEffectiveRange()
-        {
-            return _effectiveRange;
-        }
 
         private int _weight;// for weight
+        public int Weight { get; set; }
 
-        public void SetWeight(int weight)
-        {
-            _weight = weight;
-        }
-
-        public int GetWeight()
-        {
-            return _weight;
-        }
 
         private int _price;// for price
-
-        public void SetPrice(int price)
-        {
-            _price = price;
-        }
-
-        public int GetPrice()
-        {
-            return _price;
-        }
+        public int Price { get; set; }
 
 
         public void BoughtWeapon(string weapon)
